@@ -8,15 +8,18 @@ Dashboard link: https://eu2.cleverreach.com/admin/index.php
 
 In order to gain access to the API, we need to generate an access token with OAuth:
 1. Create / use an OAuth App from here: https://eu2.cleverreach.com/admin/account_rest.php and look for the Client ID and Secret keys.
-2. Add the Client ID and Secret on the plugin page and click Connect: `[your_site]/wp-admin/admin.php?page=thrive_third_party_autoresponder_section`
-3. Note: the access token generated through this method lasts one month, after which it has to be regenerated. There are code examples of how to refresh your access token here: https://rest.cleverreach.com/howto/ 
+2. Add the Client ID and Secret on the plugin page and click Connect inside the Autoresponder dashboard found at `[your_site]/wp-admin/admin.php?page=thrive_third_party_autoresponder_section` :
+
+![image](https://user-images.githubusercontent.com/26145465/159712276-2bcf126e-5f9f-4c8e-aaba-e4c97cad0561.png)
+
+3. Note: the access token generated through this method lasts for one month, after which it has to be regenerated. There are code examples for how to refresh your access token here: https://rest.cleverreach.com/howto/ 
 4. After this, CleverReach should be visible in the list of API Connection Autoresponders.
 
 ### Testing the Integration
 #### Subscribing to mailing lists
 In order to test it, you can add / use an existing mailing list from here: https://eu2.cleverreach.com/admin/customer_groups.php
 
-Afterwards:
+Afterwards, you can:
 - add the mailing list to the Lead Generation element from Thrive Architect and check that submitting the form successfully adds subscribers.
 - create an **'Add user in autoresponder'** automation from Thrive Automator and verify that triggering the automation adds subscribers
 #### Tags
