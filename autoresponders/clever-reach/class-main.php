@@ -64,7 +64,7 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 			try {
 				$this->api_instance = new API( $this->access_token );
 			} catch ( \Exception $e ) {
-				echo 'Error while instantiating the API! Error message: ' . $e->getMessage();
+				Utils::log_error( 'Error while instantiating the API! Error message: ' . $e->getMessage() );
 			}
 		}
 
@@ -142,9 +142,7 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 
 			$success = true;
 		} catch ( \Exception $e ) {
-			if ( Utils::is_local_environment() ) {
-				echo 'Error while adding/updating the subscriber! Error message: ' . $e->getMessage();
-			}
+			Utils::log_error( 'Error while adding/updating the subscriber! Error message: ' . $e->getMessage() );
 		}
 
 		return $success;
@@ -185,7 +183,7 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 			$api   = $this->get_api_instance();
 			$lists = $api->get_lists();
 		} catch ( \Exception $e ) {
-			echo 'Error while fetching the mailing lists! Error message: ' . $e->getMessage();
+			Utils::log_error( 'Error while fetching the mailing lists! Error message: ' . $e->getMessage() );
 		}
 
 		return $lists;
@@ -312,9 +310,7 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 				$subscriber_exists = true;
 			}
 		} catch ( \Exception $e ) {
-			if ( Utils::is_local_environment() ) {
-				echo 'Error while fetching the subscriber! Error message: ' . $e->getMessage();
-			}
+			Utils::log_error( 'Error while fetching the subscriber! Error message: ' . $e->getMessage() );
 		}
 
 		return $subscriber_exists ? $this->add_subscriber( $list_identifier, $args, true ) : false;

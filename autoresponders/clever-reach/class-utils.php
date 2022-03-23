@@ -92,4 +92,13 @@ class Utils {
 	public static function get_current_screen() {
 		return empty( $_GET['page'] ) ? '' : $_GET['page'];
 	}
+
+	/**
+	 * @param $message
+	 */
+	public static function log_error( $message ) {
+		$timestamp = date( 'm/d/Y h:i:s a' );
+
+		file_put_contents( __DIR__ . '/error_log.txt', $timestamp . ': ' . $message . PHP_EOL, FILE_APPEND );
+	}
 }
