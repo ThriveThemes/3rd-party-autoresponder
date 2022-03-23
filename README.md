@@ -21,12 +21,12 @@ In order to test it, you can add / use an existing mailing list from here: https
 
 Afterwards, you can:
 - add the mailing list to the Lead Generation element from Thrive Architect and check that submitting the form successfully adds subscribers.
-- create an **'Add user in autoresponder'** automation from Thrive Automator and verify that triggering the automation adds subscribers
+- create an **Add user in autoresponder** automation from Thrive Automator and verify that triggering the automation adds subscribers
 #### Tags
 Users can be tagged both through Thrive Architect and Thrive Automator, by:
 - adding tags to the Lead Generation element from Thrive Architect - this will attach the specified tags to the subscribing user
-- starting an **'Add user in autoresponder'** automation from Thrive Automator.
-- starting a **'Tag user in autoresponder'** automation and then check that triggering the automation adds the tag to the user. Please note that the user already has to be subscribed to the mailing list in order for this automation to work.
+- starting an **Add user in autoresponder** automation from Thrive Automator.
+- starting a **Tag user in autoresponder** automation and then check that triggering the automation adds the tag to the user. Please note that the user already has to be subscribed to the mailing list in order for this automation to work.
 
 #### Custom Fields
 CleverReach supports using Custom Fields. For a short guide on how to add them to your mailing lists, check https://support.cleverreach.de/hc/en-us/articles/202372851-Using-custom-data-fields-in-recipient-lists.
