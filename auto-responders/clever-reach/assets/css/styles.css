@@ -1,0 +1,8 @@
+.thrive-api-connect {
+    text-transform: capitalize;
+}
+
+.thrive-third-party-form label {
+    display: inline-block;
+    min-width: 80px;
+}
