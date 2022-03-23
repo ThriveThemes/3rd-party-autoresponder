@@ -325,7 +325,7 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 	}
 
 	public static function get_assets_url() {
-		return THRIVE_THIRD_PARTY_PLUGIN_URL . 'auto-responders/clever-reach/assets/';
+		return THRIVE_THIRD_PARTY_PLUGIN_URL . 'autoresponders/clever-reach/assets/';
 	}
 
 	public static function get_link_to_controls_page() {

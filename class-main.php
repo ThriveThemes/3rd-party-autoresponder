@@ -34,7 +34,7 @@ class Main {
 	}
 
 	public static function includes() {
-		require_once __DIR__ . '/auto-responders/class-autoresponder.php';
+		require_once __DIR__ . '/autoresponders/class-autoresponder.php';
 	}
 
 	/**
@@ -42,7 +42,7 @@ class Main {
 	 * @param $class
 	 */
 	public static function register_autoresponder( $key, $class ) {
-		require_once __DIR__ . '/auto-responders/' . $key . '/class-main.php';
+		require_once __DIR__ . '/autoresponders/' . $key . '/class-main.php';
 
 		static::$registered_autoresponders[ $key ] = new $class();
 	}

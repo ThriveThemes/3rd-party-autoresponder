@@ -26,8 +26,6 @@ abstract class Autoresponder {
 
 	abstract function add_subscriber( $list_identifier, $args );
 
-	abstract static function get_link_to_controls_page();
-
 	/**
 	 * @return array
 	 */
@@ -138,5 +136,12 @@ abstract class Autoresponder {
 	 */
 	public static function get_thumbnail() {
 		return '';
+	}
+
+	/**
+	 * @return string
+	 */
+	public static function get_link_to_controls_page() {
+		return 'link-to-your-plugin-page-here';
 	}
 }
