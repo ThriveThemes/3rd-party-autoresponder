@@ -10,7 +10,7 @@ In order to gain access to the API, we need to generate an access token with OAu
 1. Create / use an OAuth App from here: https://eu2.cleverreach.com/admin/account_rest.php and look for the Client ID and Secret keys.
 2. Add the Client ID and Secret on the plugin page and click Connect inside the Autoresponder dashboard found at `[your_site]/wp-admin/admin.php?page=thrive_third_party_autoresponder_section` :
 
-![image](https://user-images.githubusercontent.com/26145465/159712276-2bcf126e-5f9f-4c8e-aaba-e4c97cad0561.png)
+![image](https://user-images.githubusercontent.com/26145465/159869031-d20b956f-fbbb-4956-8119-9eed8f1244bf.png)
 
 3. Note: the access token generated through this method lasts for one month, after which it has to be regenerated. There are code examples for how to refresh your access token here: https://rest.cleverreach.com/howto/ 
 4. After this, CleverReach should be visible in the list of API Connection Autoresponders.
@@ -26,7 +26,7 @@ Afterwards, you can:
 Users can be tagged both through Thrive Architect and Thrive Automator, by:
 - adding tags to the Lead Generation element from Thrive Architect - this will attach the specified tags to the subscribing user
 - starting an **Add user in autoresponder** automation from Thrive Automator.
-- starting a **Tag user in autoresponder** automation and then check that triggering the automation adds the tag to the user. Please note that the user already has to be subscribed to the mailing list in order for this automation to work.
+- starting a **Tag user in autoresponder** automation, after which triggering the automation adds the tag to the user. Please note that the user already has to be subscribed to the mailing list in order for this automation to work.
 
 #### Custom Fields
 CleverReach supports using Custom Fields. For a short guide on how to add them to your mailing lists, check https://support.cleverreach.de/hc/en-us/articles/202372851-Using-custom-data-fields-in-recipient-lists.
