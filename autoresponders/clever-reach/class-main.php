@@ -157,22 +157,31 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 			return false;
 		}
 
-		try {
-			$this->get_lists();
-		} catch ( \Exception $e ) {
-			echo $e->getMessage();
+		$is_connected = true;
 
-			return false;
+		try {
+			$lists = $this->get_lists( true );
+
+			/* false is only be returned if the request fails */
+			if ( $lists === false ) {
+				$is_connected = false;
+			}
+		} catch ( \Exception $e ) {
+			Utils::print_message( $e->getMessage() );
+
+			$is_connected = false;
 		}
 
-		return true;
+		return $is_connected;
 	}
 
 	/**
+	 * @param bool $is_testing_connection
+	 *
 	 * @return array|mixed|null
 	 * @throws \Exception
 	 */
-	public function get_lists() {
+	public function get_lists( $is_testing_connection = false ) {
 		if ( ! $this->is_connected() ) {
 			return [];
 		}
@@ -183,7 +192,14 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 			$api   = $this->get_api_instance();
 			$lists = $api->get_lists();
 		} catch ( \Exception $e ) {
-			Utils::log_error( 'Error while fetching the mailing lists! Error message: ' . $e->getMessage() );
+			$message = $e->getMessage();
+
+			Utils::log_error( 'Error while fetching the mailing lists! Error message: ' . $message );
+
+			if ( $is_testing_connection ) {
+				Utils::print_message( $message );
+				$lists = false;
+			}
 		}
 
 		return $lists;
@@ -226,7 +242,15 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 	 * @return array
 	 */
 	public function get_api_custom_fields( $params = [], $force = false, $get_all = true ) {
-		return $this->get_custom_field_instance()->get_custom_fields();
+		$custom_fields = [];
+
+		try {
+			$custom_fields = $this->get_custom_field_instance()->get_custom_fields();
+		} catch ( \Exception $e ) {
+			Utils::log_error( 'Error while fetching the custom fields! Error message: ' . $e->getMessage() );
+		}
+
+		return $custom_fields;
 	}
 
 	/**
