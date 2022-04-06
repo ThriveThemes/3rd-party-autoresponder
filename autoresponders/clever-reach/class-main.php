@@ -340,6 +340,38 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 		return $subscriber_exists ? $this->add_subscriber( $list_identifier, $args, true ) : false;
 	}
 
+	/**
+	 * This is called from Thrive Quiz Builder and it is used to add an array of tags to already existing ones.
+	 *
+	 * @param array|string $tags
+	 * @param array        $data
+	 *
+	 * @return array
+	 */
+	public function push_tags( $tags, $data = [] ) {
+		if ( empty( $tags ) || ! $this->has_tags() ) {
+			return $data;
+		}
+
+		if ( is_array( $tags ) ) {
+			$tags = implode( ', ', $tags );
+		} else if ( ! is_string( $tags ) ) {
+			$tags = '';
+		}
+
+		$tag_key = $this->get_tags_key();
+
+		if ( empty( $data[ $tag_key ] ) ) {
+			$tag_data = $tags;
+		} else {
+			$tag_data = $data[ $tag_key ] . ( empty( $tags ) ? '' : ', ' . $tags );
+		}
+
+		$data[ $tag_key ] = trim( $tag_data );
+
+		return $data;
+	}
+
 	public static function get_thumbnail() {
 		return static::get_assets_url() . 'images/clever_reach.png';
 	}
