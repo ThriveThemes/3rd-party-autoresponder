@@ -162,7 +162,7 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 		try {
 			$lists = $this->get_lists( true );
 
-			/* false is only be returned if the request fails */
+			/* false is only returned if the request fails */
 			if ( $lists === false ) {
 				$is_connected = false;
 			}
@@ -295,7 +295,8 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 	 * @return \string[][]
 	 */
 	public function get_automator_add_autoresponder_mapping_fields() {
-		return [ 'autoresponder' => [ 'mailing_list', 'api_fields', 'tag_input' ] ];
+		//todo explain the structure a bit
+		return [ 'autoresponder' => [ 'mailing_list' => [ 'form_list' ], 'api_fields' => [], 'tag_input' => [] ] ];
 	}
 
 	/**
@@ -304,6 +305,54 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 	 */
 	public function get_automator_tag_autoresponder_mapping_fields() {
 		return [ 'autoresponder' => [ 'mailing_list', 'tag_input' ] ];
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function has_forms() {
+		return true;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_forms_key() {
+		return $this->get_key() . '_form';
+	}
+
+	public function get_forms() {
+		$forms = [];
+
+		try {
+			$api = $this->get_api_instance();
+
+			foreach ( $this->get_lists() as $list ) {
+				$forms[ $list->id ][] = [
+					'id'   => 0,
+					'name' => 'none',
+				];
+			}
+
+			foreach ( $api->get_forms() as $form ) {
+				$list_id = $form->customer_tables_id;
+
+				if ( empty( $forms[ $list_id ] ) ) {
+					$forms[ $list_id ] = [];
+				}
+
+				$forms[ $list_id ][ $form->id ] = [
+					'id'   => $form->id,
+					'name' => $form->name,
+				];
+			}
+
+
+		} catch ( \Exception $e ) {
+			Utils::log_error( 'Error while fetching the forms! Error message: ' . $e->getMessage() );
+		}
+
+		return $forms;
 	}
 
 	/**
