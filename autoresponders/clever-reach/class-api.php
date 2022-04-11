@@ -47,6 +47,10 @@ class API {
 		return $this->get( '/groups' );
 	}
 
+	public function get_forms() {
+		return $this->get( '/forms' );
+	}
+
 	/**
 	 * @param      $path
 	 * @param bool $data

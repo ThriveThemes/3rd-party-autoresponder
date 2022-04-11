@@ -51,7 +51,7 @@ abstract class Autoresponder {
 	 *
 	 * @return array
 	 */
-	public function get_api_data( $params = array() ) {
+	public function get_api_data( $params = [] ) {
 		$api_editor_data = [
 			'lists' => static::get_lists(),
 		];
@@ -102,8 +102,7 @@ abstract class Autoresponder {
 	}
 
 	/**
-	 * A forms integration example will be implemented in the next release.
-	 *
+	 * todo: explain this
 	 * @return bool
 	 */
 	public function has_forms() {
@@ -143,5 +142,18 @@ abstract class Autoresponder {
 	 */
 	public static function get_link_to_controls_page() {
 		return 'link-to-your-plugin-page-here';
+	}
+
+	public static function get_type() {
+		return 'autoresponder';
+	}
+
+	/**
+	 * This is the email shortcode from clever-reach
+	 *
+	 * @return string
+	 */
+	public function get_email_merge_tag() {
+		return '{EMAIL}';
 	}
 }

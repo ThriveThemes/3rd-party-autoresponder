@@ -76,6 +76,7 @@ class Custom_Fields {
 
 			$lists = $this->api->get_lists();
 
+			/* only continue if mailing lists exist ( they're not required for the next step, but there's no point in doing it if there are no lists ) */
 			if ( is_array( $lists ) ) {
 				$this->all_custom_fields = [];
 
