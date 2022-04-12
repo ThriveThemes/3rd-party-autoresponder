@@ -155,15 +155,17 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 			unset( $data['automator_custom_fields'] );
 		}
 
-		$form_key = $this->get_forms_key();
+		if ( $this->has_forms() ) {
+			$form_key = $this->get_forms_key();
 
-		if ( ! empty( $data[ $form_key ] ) ) {
-			if ( empty( $data['global_attributes'] ) ) {
-				$data['global_attributes'] = [];
+			if ( ! empty( $data[ $form_key ] ) ) {
+				if ( empty( $data['global_attributes'] ) ) {
+					$data['global_attributes'] = [];
+				}
+
+				$data['global_attributes']['form_id'] = sanitize_text_field( $data[ $form_key ] );
+				unset( $data[ $form_key ] );
 			}
-
-			$data['global_attributes']['form_id'] = sanitize_text_field( $data[ $form_key ] );
-			unset( $data[ $form_key ] );
 		}
 
 		return $data;
@@ -359,6 +361,7 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 		try {
 			$api = $this->get_api_instance();
 
+			/* since the clever-reach forms depend on the mailing list, they are structured according to the list IDs */
 			foreach ( $this->get_lists() as $list ) {
 				$forms[ $list->id ][] = [
 					'id'   => 0,
