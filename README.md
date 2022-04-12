@@ -31,6 +31,9 @@ Users can be tagged both through Thrive Architect and Thrive Automator, by:
 - starting an **Add user in autoresponder** automation from Thrive Automator.
 - starting a **Tag user in autoresponder** automation, after which triggering the automation adds the tag to the user. Please note that the user already has to be subscribed to the mailing list in order for this automation to work.
 
+#### Forms
+Forms created in CleverReach are available in Thrive Automator and Thrive Architect. When a form is selected, the identifier is sent to the API. Right now CleverReach doesn't seem to be using the sent form identifier for anything, but you can create a custom field called `form_id` in order to make use of the functionality. Our implementation sends the `form_id` to a custom field named as such, just to exemplify the utility.
+
 #### Custom Fields
 CleverReach supports using Custom Fields. For a short guide on how to add them to your mailing lists, check https://support.cleverreach.de/hc/en-us/articles/202372851-Using-custom-data-fields-in-recipient-lists.
 
