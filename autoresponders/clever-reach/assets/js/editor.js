@@ -1,5 +1,5 @@
 /**
- * This contains functionality that allows the tags and form settings to show in the Thrive Architecr editor in the Lead Generation API settings.
+ * This contains functionality that allows the tags and form settings to show in the Thrive Architect editor in the Lead Generation API settings.
  */
 if ( typeof TVE !== 'undefined' ) {
 	/* if you re-use this for another API, everything should still work :) */
