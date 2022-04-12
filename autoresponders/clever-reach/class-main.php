@@ -76,7 +76,7 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 	 * If 'Disconnect' is pressed, clear the credentials and the token.
 	 * If 'Test connection' is pressed, run a test API call and print the result.
 	 *
-	 * @param $post_data
+	 * @param array $post_data
 	 */
 	public function on_form_action( $post_data ) {
 		switch ( $post_data['action'] ) {
@@ -109,37 +109,9 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 		$success = false;
 
 		try {
-			$api = $this->get_api_instance();
-
-			/* include tags if they are present in the data */
-			$tag_key = $this->get_tags_key();
-
-			if ( isset( $data[ $tag_key ] ) ) {
-				$tags         = explode( ', ', $data[ $tag_key ] );
-				$data['tags'] = $tags;
-			}
-
-			if ( ! empty( $data['tve_mapping'] ) ) {
-				/**
-				 * When the request is coming from a Thrive Architect form, if it contains the 'tve_mapping' field it means that there are encoded custom fields inside.
-				 * In that case, the custom field helper class parses the data and returns the custom fields that must be added here.
-				 */
-				$custom_fields = $this->get_custom_field_instance()->parse_custom_fields( $data );
-
-				if ( ! empty( $custom_fields ) ) {
-					$data['global_attributes'] = $custom_fields;
-				}
-			} else if ( ! empty( $data['automator_custom_fields'] ) ) {
-				/**
-				 * If the request contains custom fields data from automator, we can add it directly since it's sent in the proper format.
-				 * The contents are processed beforehand inside the 'build_automation_custom_fields' function.
-				 */
-				$data['global_attributes'] = $data['automator_custom_fields'];
-				unset( $data['automator_custom_fields'] );
-			}
-
+			$api  = $this->get_api_instance();
+			$data = $this->process_subscriber_data( $data );
 			$api->add_subscriber( $list_identifier, $data, $is_update ? 'put' : 'post' );
-
 			$success = true;
 		} catch ( \Exception $e ) {
 			Utils::log_error( 'Error while adding/updating the subscriber! Error message: ' . $e->getMessage() );
@@ -148,10 +120,63 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 		return $success;
 	}
 
+	/**
+	 * @param array $data
+	 *
+	 * @return mixed
+	 */
+	public function process_subscriber_data( $data ) {
+		$tag_key = $this->get_tags_key();
+
+		/* include tags if they are present in the data */
+		if ( isset( $data[ $tag_key ] ) ) {
+			$tags         = explode( ', ', $data[ $tag_key ] );
+			$data['tags'] = $tags;
+		}
+
+		if ( ! empty( $data['tve_mapping'] ) ) {
+			/**
+			 * When the request is coming from a Thrive Architect form, if it contains the 'tve_mapping' field it means that there are encoded custom fields inside.
+			 * In that case, the custom field helper class parses the data and returns the custom fields that must be added here.
+			 */
+			$custom_fields = $this->get_custom_field_instance()->parse_custom_fields( $data );
+
+			if ( ! empty( $custom_fields ) ) {
+				$data['global_attributes'] = $custom_fields;
+			}
+		} else if ( ! empty( $data['automator_custom_fields'] ) ) {
+			/**
+			 * If the request contains custom fields data from automator, we can add it directly since it's sent in the proper format.
+			 * The contents are processed beforehand inside the 'build_automation_custom_fields' function.
+			 */
+			$data['global_attributes'] = $data['automator_custom_fields'];
+			unset( $data['automator_custom_fields'] );
+		}
+
+		$form_key = $this->get_forms_key();
+
+		if ( ! empty( $data[ $form_key ] ) ) {
+			if ( empty( $data['global_attributes'] ) ) {
+				$data['global_attributes'] = [];
+			}
+
+			$data['global_attributes']['form_id'] = sanitize_text_field( $data[ $form_key ] );
+			unset( $data[ $form_key ] );
+		}
+
+		return $data;
+	}
+
+	/**
+	 * @return bool
+	 */
 	public function is_connected() {
 		return ! empty( $this->access_token );
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function test_connection() {
 		if ( ! $this->is_connected() ) {
 			return false;
@@ -254,7 +279,8 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 	}
 
 	/**
-	 * Build custom fields mapping for automations
+	 * Builds custom fields mapping for automations.
+	 * Called from Thrive Automator when the custom fields are processed.
 	 *
 	 * @param $automation_data
 	 *
@@ -291,11 +317,12 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 	}
 
 	/**
-	 * Enables the mailing list and the tag features inside Thrive Automator.
+	 * Enables the mailing list, forms and tag features inside Thrive Automator.
+	 * Check the parent method for an explanation of the config structure.
+	 *
 	 * @return \string[][]
 	 */
 	public function get_automator_add_autoresponder_mapping_fields() {
-		//todo explain the structure a bit
 		return [ 'autoresponder' => [ 'mailing_list' => [ 'form_list' ], 'api_fields' => [], 'tag_input' => [] ] ];
 	}
 
@@ -346,8 +373,6 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 					'name' => $form->name,
 				];
 			}
-
-
 		} catch ( \Exception $e ) {
 			Utils::log_error( 'Error while fetching the forms! Error message: ' . $e->getMessage() );
 		}
@@ -391,6 +416,7 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 
 	/**
 	 * This is called from Thrive Quiz Builder and it is used to add an array of tags to already existing ones.
+	 * Only used if has_tags() is enabled.
 	 *
 	 * @param array|string $tags
 	 * @param array        $data
