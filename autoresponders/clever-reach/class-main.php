@@ -132,7 +132,9 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 
 		/* include tags if they are present in the data */
 		if ( isset( $data[ $tag_key ] ) ) {
-			$tags         = explode( ', ', $data[ $tag_key ] );
+			$tags = explode( ',', $data[ $tag_key ] );
+			/* there are some cases where the tags string also has spaces after the ',', so we apply trim() on each element in order to uniformize them */
+			$tags         = array_map( 'trim', $tags );
 			$data['tags'] = $tags;
 		}
 
@@ -437,7 +439,7 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 		}
 
 		if ( is_array( $tags ) ) {
-			$tags = implode( ', ', $tags );
+			$tags = implode( ',', $tags );
 		} else if ( ! is_string( $tags ) ) {
 			$tags = '';
 		}
@@ -447,7 +449,7 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 		if ( empty( $data[ $tag_key ] ) ) {
 			$tag_data = $tags;
 		} else {
-			$tag_data = $data[ $tag_key ] . ( empty( $tags ) ? '' : ', ' . $tags );
+			$tag_data = $data[ $tag_key ] . ( empty( $tags ) ? '' : ',' . $tags );
 		}
 
 		$data[ $tag_key ] = trim( $tag_data );
