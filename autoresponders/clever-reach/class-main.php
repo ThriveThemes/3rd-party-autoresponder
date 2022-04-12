@@ -19,6 +19,8 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 	private $access_token;
 	private $api_instance;
 
+	const API_KEY = 'clever-reach';
+
 	/**
 	 * @return string
 	 */
@@ -27,7 +29,7 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 	}
 
 	public function get_key() {
-		return 'clever-reach';
+		return static::API_KEY;
 	}
 
 	public function __construct() {
@@ -348,6 +350,9 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 		return $this->get_key() . '_form';
 	}
 
+	/**
+	 * @return array
+	 */
 	public function get_forms() {
 		$forms = [];
 

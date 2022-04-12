@@ -82,7 +82,7 @@ abstract class Autoresponder {
 	 * - implement get_automator_tag_autoresponder_mapping_fields() ( for Thrive Automator );
 	 * - implement update_tags() ( for Thrive Automator );
 	 * - implement push_tags() ( for Thrive Quiz Builder );
-	 * - adapt autoresponders\clever-reach\assets\js\editor.js to suit your API ( change the apiKey )
+	 * - if needed, adapt autoresponders\clever-reach\assets\js\editor.js to suit your API - used by Thrive Architect
 	 *
 	 * A working example can be found in the clever-reach folder.
 	 *
@@ -117,7 +117,7 @@ abstract class Autoresponder {
 	 * - set this to true;
 	 * - implement get_forms_key() - used by both Thrive Automator and Thrive Architect
 	 * - implement get_forms() - used by both Thrive Automator and Thrive Architect
-	 * - adapt autoresponders\clever-reach\assets\js\editor.js to suit your API ( change the apiKey ) - used by Thrive Architect
+	 * - if needed, adapt autoresponders\clever-reach\assets\js\editor.js to suit your API - used by Thrive Architect
 	 *
 	 * A working example can be found in the clever-reach folder.
 	 * @return bool
@@ -174,12 +174,15 @@ abstract class Autoresponder {
 		return 'link-to-your-plugin-page-here';
 	}
 
+	/**
+	 * @return string
+	 */
 	public static function get_type() {
 		return 'autoresponder';
 	}
 
 	/**
-	 * This is the email shortcode from clever-reach
+	 * This is the email shortcode tag from clever-reach
 	 *
 	 * @return string
 	 */
