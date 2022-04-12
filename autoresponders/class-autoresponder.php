@@ -61,6 +61,13 @@ abstract class Autoresponder {
 			$api_editor_data['api_custom_fields'] = $this->get_api_custom_fields( $params );
 		}
 
+		/* if forms are enabled, Thrive Architect requires the list of forms in the editor */
+		if ( $this->has_forms() ) {
+			$api_editor_data['extra_settings'] = [
+				'forms' => $this->get_forms()
+			];
+		}
+
 		return $api_editor_data;
 	}
 
@@ -74,6 +81,8 @@ abstract class Autoresponder {
 	 * - override get_automator_add_autoresponder_mapping_fields() to also contain the 'tag_input' key ( for Thrive Automator );
 	 * - implement get_automator_tag_autoresponder_mapping_fields() ( for Thrive Automator );
 	 * - implement update_tags() ( for Thrive Automator );
+	 * - implement push_tags() ( for Thrive Quiz Builder );
+	 * - adapt autoresponders\clever-reach\assets\js\editor.js to suit your API ( change the apiKey )
 	 *
 	 * A working example can be found in the clever-reach folder.
 	 *
@@ -102,7 +111,15 @@ abstract class Autoresponder {
 	}
 
 	/**
-	 * todo: explain this
+	 * False by default.
+	 *
+	 * In order to implement forms:
+	 * - set this to true;
+	 * - implement get_forms_key() - used by both Thrive Automator and Thrive Architect
+	 * - implement get_forms() - used by both Thrive Automator and Thrive Architect
+	 * - adapt autoresponders\clever-reach\assets\js\editor.js to suit your API ( change the apiKey ) - used by Thrive Architect
+	 *
+	 * A working example can be found in the clever-reach folder.
 	 * @return bool
 	 */
 	public function has_forms() {
@@ -115,6 +132,19 @@ abstract class Autoresponder {
 	 * @return \string[][]
 	 */
 	public function get_automator_add_autoresponder_mapping_fields() {
+		/**
+		 * Some usage examples for this:
+		 *
+		 * A basic configuration only for mailing lists is "[ 'autoresponder' => [ 'mailing_list' ] ]".
+		 * If the custom fields rely on the mailing list, they are added like this: "[ 'autoresponder' => [ 'mailing_list' => [ 'api_fields' ] ] ]"
+		 * If the custom fields don't rely on the mailing list ( global custom fields ), the config is: "[ 'autoresponder' => [ 'mailing_list', 'api_fields' ] ]"
+		 *
+		 * Config for mailing list, custom fields (global), tags: "[ 'autoresponder' => [ 'mailing_list', 'api_fields', 'tag_input' ] ]"
+		 *
+		 * Config for mailing list, tags, and forms that depend on the mailing lists:
+		 * "[ 'autoresponder' => [ 'mailing_list' => [ 'form_list' ], 'api_fields' => [], 'tag_input' => [] ] ]"
+		 * ^ If one of the keys has a corresponding array, empty arrays must be added to the other keys in order to respect the structure.
+		 */
 		return [ 'autoresponder' => [ 'mailing_list' ] ];
 	}
 
