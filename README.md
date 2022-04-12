@@ -2,6 +2,9 @@
 
 This plugin demonstrates the integration of a third party autoresponder with the Thrive Themes API Connections, exemplified through integrating with the CleverReach API.
 
+### Note regarding compatibility with Thrive products
+When updating Thrive products please make sure that you also update this by retrieving and installing the latest version from the `master` branch in order to ensure compatibility between the Thrive products and this plugin.
+
 ### CleverReach quick guide
 
 Dashboard link: https://eu2.cleverreach.com/admin/index.php
