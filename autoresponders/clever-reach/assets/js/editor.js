@@ -17,6 +17,8 @@ if ( typeof TVE !== 'undefined' ) {
 		if ( apiKey === CLEVER_REACH_API_KEY ) {
 			/* Functionality for forms */
 			$template.append( TVE.tpl( 'lead-generation/apis/default-form-controls' )( {api: model} ) );
+			/* Functionality for opt-in */
+			$template.append( TVE.tpl( 'lead-generation/apis/default-optin-controls' )( {api: model} ) );
 			/* Functionality for tags */
 			$template.append( TVE.tpl( 'lead-generation/apis/default-tag-controls' )( {api: model} ) );
 		}
