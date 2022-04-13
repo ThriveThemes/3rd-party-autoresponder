@@ -47,6 +47,7 @@ class Hooks {
 
 		$localized_data = [
 			'api_logo' => Main::get_assets_url() . 'images/clever_reach_no_text.png',
+			'api_key'  => Main::API_KEY,
 		];
 
 		wp_localize_script( 'thrive-architect-api-integration', 'thrive_third_party_api_localized_data', $localized_data );

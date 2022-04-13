@@ -43,8 +43,20 @@ class API {
 		return $this->post( '/groups/' . $list_id . '/receivers', $args, $mode );
 	}
 
+	/**
+	 * @return mixed|null
+	 * @throws \Exception
+	 */
 	public function get_lists() {
 		return $this->get( '/groups' );
+	}
+
+	/**
+	 * @return mixed|null
+	 * @throws \Exception
+	 */
+	public function get_forms() {
+		return $this->get( '/forms' );
 	}
 
 	/**
