@@ -117,6 +117,7 @@ abstract class Autoresponder {
 	 * - set this to true;
 	 * - implement get_forms_key() - used by both Thrive Automator and Thrive Architect
 	 * - implement get_forms() - used by both Thrive Automator and Thrive Architect
+	 * - handle the form data inside the add_subscriber() function
 	 * - if needed, adapt autoresponders\clever-reach\assets\js\editor.js to suit your API - used by Thrive Architect
 	 *
 	 * A working example can be found in the clever-reach folder.
@@ -127,8 +128,23 @@ abstract class Autoresponder {
 	}
 
 	/**
+	 * False by default.
+	 *
+	 * In order to implement the opt-in selector:
+	 * - set this to true;
+	 * - implement get_optin_key() - used by both Thrive Automator and Thrive Architect
+	 * - handle the opt-in data inside the add_subscriber() function
+	 *
+	 * A working example can be found in the clever-reach folder.
+	 * @return bool
+	 */
+	public function has_optin() {
+		return false;
+	}
+
+	/**
 	 * Specifies the features used by this autoresponder inside Thrive Automator.
-	 * By default only the mailing list is enabled, in order to add tags and custom fields, extend this.
+	 * By default only the mailing list is enabled, in order to add tags, forms, opt-in type and custom fields, extend this.
 	 * @return \string[][]
 	 */
 	public function get_automator_add_autoresponder_mapping_fields() {
