@@ -10,13 +10,17 @@ When updating Thrive products please make sure that you also update this by retr
 Dashboard link: https://eu2.cleverreach.com/admin/index.php
 
 In order to gain access to the API, we need to generate an access token with OAuth:
-1. Create / use an OAuth App from here: https://eu2.cleverreach.com/admin/account_rest.php and look for the Client ID and Secret keys.
-2. Add the Client ID and Secret on the plugin page and click Connect inside the Autoresponder dashboard found at `[your_site]/wp-admin/admin.php?page=thrive_third_party_autoresponder_section` :
+Create / use an OAuth App from here: https://eu2.cleverreach.com/admin/account_rest.php and look for the Client ID and Secret keys.
+
+Please check all the features that you want to use ( for instance, if you want to include the Forms functionality, also check Forms )
+![image](https://user-images.githubusercontent.com/26145465/163347674-a42b6f0b-1af5-46c2-b5cd-33a351aef437.png)
+
+Add the Client ID and Secret on the plugin page and click Connect inside the Autoresponder dashboard found at `[your_site]/wp-admin/admin.php?page=thrive_third_party_autoresponder_section` :
 
 ![image](https://user-images.githubusercontent.com/26145465/159869031-d20b956f-fbbb-4956-8119-9eed8f1244bf.png)
 
-3. Note: the access token generated through this method lasts for one month, after which it has to be regenerated. There are code examples for how to refresh your access token here: https://rest.cleverreach.com/howto/ 
-4. After this, CleverReach should be visible in the list of API Connection Autoresponders.
+Note: the access token generated through this method lasts for one month, after which it has to be regenerated. There are code examples for how to refresh your access token here: https://rest.cleverreach.com/howto/ 
+After this, CleverReach should be visible in the list of API Connection Autoresponders.
 
 ### Testing the Integration
 #### Subscribing to mailing lists
@@ -33,6 +37,9 @@ Users can be tagged both through Thrive Architect and Thrive Automator, by:
 
 #### Forms
 Forms created in CleverReach are available in Thrive Automator and Thrive Architect. When a form is selected, the identifier is sent to the API. Right now CleverReach doesn't seem to be using the sent form identifier for anything, but you can create a custom field called `form_id` in order to make use of the functionality. Our implementation sends the `form_id` to a custom field named as such, just to exemplify the utility.
+
+### Opt-in
+The opt-in type (single or double) can be selected from the interface.
 
 #### Custom Fields
 CleverReach supports using Custom Fields. For a short guide on how to add them to your mailing lists, check https://support.cleverreach.de/hc/en-us/articles/202372851-Using-custom-data-fields-in-recipient-lists.
