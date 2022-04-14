@@ -12,7 +12,8 @@ Dashboard link: https://eu2.cleverreach.com/admin/index.php
 In order to gain access to the API, we need to generate an access token with OAuth:
 Create / use an OAuth App from here: https://eu2.cleverreach.com/admin/account_rest.php and look for the Client ID and Secret keys.
 
-Please check all the features that you want to use ( for instance, if you want to include the Forms functionality, also check Forms )
+Please check all the features that you want to use ( for instance, if you want to include the Forms functionality, also check Forms ):
+
 ![image](https://user-images.githubusercontent.com/26145465/163347674-a42b6f0b-1af5-46c2-b5cd-33a351aef437.png)
 
 Add the Client ID and Secret on the plugin page and click Connect inside the Autoresponder dashboard found at `[your_site]/wp-admin/admin.php?page=thrive_third_party_autoresponder_section` :
