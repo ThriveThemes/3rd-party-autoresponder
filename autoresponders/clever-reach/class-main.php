@@ -170,6 +170,19 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 			}
 		}
 
+		if ( $this->has_optin() ) {
+			$opt_in_key = $this->get_optin_key();
+
+			/**
+			 * If the opt-in is set to 'double', we send the 'registered' field without the 'activated' field being set.
+			 * This lets the API know that we added a user that is not activated yet. ( if we don't set the fields at all, the user is activated by default )
+			 * For more details, see the 'Implementation Notes' from this section of the Rest Explorer: https://rest.cleverreach.com/explorer/v3/#!/groups-v3/create__post
+			 */
+			if ( ! empty( $data[ $opt_in_key ] ) && $data[ $opt_in_key ] === 'd' ) {
+				$data['registered']  = time();
+			}
+		}
+
 		return $data;
 	}
 
@@ -323,13 +336,13 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 	}
 
 	/**
-	 * Enables the mailing list, forms and tag features inside Thrive Automator.
+	 * Enables the mailing list, forms, opt-in type and tag features inside Thrive Automator.
 	 * Check the parent method for an explanation of the config structure.
 	 *
 	 * @return \string[][]
 	 */
 	public function get_automator_add_autoresponder_mapping_fields() {
-		return [ 'autoresponder' => [ 'mailing_list' => [ 'form_list' ], 'api_fields' => [], 'tag_input' => [] ] ];
+		return [ 'autoresponder' => [ 'mailing_list' => [ 'form_list' ], 'api_fields' => [], 'optin' => [], 'tag_input' => [] ] ];
 	}
 
 	/**
@@ -388,6 +401,20 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 		}
 
 		return $forms;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function has_optin() {
+		return true;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_optin_key() {
+		return $this->get_key() . '_optin';
 	}
 
 	/**
