@@ -71,3 +71,5 @@ The newly added autoresponder must be registered inside the `init()` function fr
 `static::register_autoresponder( 'clever-reach', 'Thrive\ThirdPartyAutoResponderDemo\AutoResponders\CleverReach\Main' );`
 
 This adds the autoresponder to the API Connections lists from Thrive Dashboard, Thrive Automator and Thrive Architect.
+
+Some examples of sent/received data with some additional explanations for `add_subscriber` can be found here: https://docs.google.com/document/d/17S_KQsJnkrXjzZgSsy_HAvcpSVnFbvqplfySo1caei4
