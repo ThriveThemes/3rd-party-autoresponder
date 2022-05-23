@@ -20,16 +20,23 @@ abstract class Autoresponder {
 	/**
 	 * @return boolean
 	 */
-	abstract function is_connected();
+	abstract public function is_connected();
 
-	abstract function test_connection();
+	abstract public function test_connection();
 
-	abstract function add_subscriber( $list_identifier, $args );
+	/**
+	 * @param string $list_identifier - the ID of the mailing list
+	 * @param array  $data            - an array of what we want to send as subscriber data
+	 * @param bool   $is_update
+	 *
+	 * @return boolean
+	 */
+	abstract public function add_subscriber( $list_identifier, $data, $is_update = false );
 
 	/**
 	 * @return array
 	 */
-	abstract function get_lists();
+	abstract public function get_lists();
 
 	/**
 	 * @return array

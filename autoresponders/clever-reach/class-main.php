@@ -97,8 +97,8 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 	}
 
 	/**
-	 * @param string $list_identifier
-	 * @param array  $data
+	 * @param string $list_identifier - the ID of the mailing list
+	 * @param array  $data            - an array of what we want to send as subscriber data
 	 * @param bool   $is_update
 	 *
 	 * @return boolean
@@ -179,7 +179,7 @@ class Main extends \Thrive\ThirdPartyAutoResponderDemo\AutoResponders\Autorespon
 			 * For more details, see the 'Implementation Notes' from this section of the Rest Explorer: https://rest.cleverreach.com/explorer/v3/#!/groups-v3/create__post
 			 */
 			if ( ! empty( $data[ $opt_in_key ] ) && $data[ $opt_in_key ] === 'd' ) {
-				$data['registered']  = time();
+				$data['registered'] = time();
 			}
 		}
 
